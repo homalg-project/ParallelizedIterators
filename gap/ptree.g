@@ -128,12 +128,3 @@ end;
 TwoLevelIterator := function(list)
   return Iterator(List(list, Iterator));
 end;
-
-iter_channel := CreateChannel();
-sample_iter := TwoLevelIterator([[1,2,3],[4,5,6],[7,8,9]]);
-cancel := ScheduleWithIterator(4, sample_iter, iter_channel);
-while true do
-  elem := ReceiveChannel(iter_channel);
-  if elem = fail then break; fi;
-  Display(elem);
-od;
