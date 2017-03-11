@@ -125,32 +125,12 @@ ScheduleWithIterator := function(nworkers, iter, ch)
   return ScheduleWithPriority(nworkers, [ 0, 0 ], [WithIterator, iter], ch);
 end;
 
-N := 1000;
-
-iter := function(prio, state)
-  local len, i;
-  len := Length(state);
-  if state[len] >= N then
-    return [];
-  fi;
-  if len = 3 then
-    return [List([1..N], x -> Concatenation(state{[1..2]}, [x]))];
-  else
-    state[len] := state[len] + 1;
-    prio[1] := prio[1] + 1;
-    for i in [ 1 .. 10000 ] do
-    od;
-    return [[len+1, 1], iter, Concatenation(state, [0])];
-  fi;
-end;
-
 TwoLevelIterator := function(list)
   return Iterator(List(list, Iterator));
 end;
 
 iter_channel := CreateChannel();
 sample_iter := TwoLevelIterator([[1,2,3],[4,5,6],[7,8,9]]);
-# ScheduleWithPriority(4, [1, 1], [iter, [0]], iter_channel);
 cancel := ScheduleWithIterator(4, sample_iter, iter_channel);
 while true do
   elem := ReceiveChannel(iter_channel);
