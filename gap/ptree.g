@@ -120,3 +120,7 @@ end;
 TwoLevelIterator := function(list)
   return Iterator(List(list, Iterator));
 end;
+
+ThreeLevelIterator := function(list)
+  return Iterator(List(list, TwoLevelIterator));
+end;
