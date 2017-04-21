@@ -75,7 +75,7 @@ ScheduleWithPriority := function(nworkers, initial, ch)
     nworkers := nworkers,
     cancelled := false
   );
-  ShareInternalObj(state);
+  ShareInternalObj(state,"state region");
   sem := CreateSemaphore();
   workers := [];
   for i in [1..nworkers] do
