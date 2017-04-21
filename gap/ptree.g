@@ -25,7 +25,9 @@ end;
 
 PrioWorker := function(state, sem, ch, nworkers, name)
   local prio, job, next, len, leaf, i;
-  SetRegionName( "", Concatenation( "worker", name ) );
+  name := Concatenation( "worker", name );
+  SetRegionName( "", name );
+  Print( "I am ", name, ". Welcome to my local thread.\n" );
   while true do
     WaitSemaphore(sem);
     atomic state do
