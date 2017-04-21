@@ -54,6 +54,7 @@ PrioWorker := function(state, sem, ch, nworkers, name)
 	od;
 	state.count := state.count - 1;
       elif len = 2 then # [ prio, state] -> next task step
+        Print( "popped next iterator at level ", prio, "\n" );
         InsertPriorityQueue(state.pq, prio, job);
 	SignalSemaphore(sem);
         InsertPriorityQueue(state.pq, next[1], [job[1], next[2]]);
