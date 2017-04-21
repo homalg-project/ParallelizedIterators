@@ -23,8 +23,9 @@ GetPriorityQueue := function(pq)
   return result;
 end;
 
-PrioWorker := function(state, sem, ch, nworkers)
+PrioWorker := function(state, sem, ch, nworkers, name)
   local prio, job, next, len, leaf, i;
+  SetRegionName( "", Concatenation( "worker", name ) );
   while true do
     WaitSemaphore(sem);
     atomic state do
@@ -79,7 +80,7 @@ ScheduleWithPriority := function(nworkers, initial, ch)
   sem := CreateSemaphore();
   workers := [];
   for i in [1..nworkers] do
-    workers[i] := CreateThread(PrioWorker, state, sem, ch, nworkers);
+    workers[i] := CreateThread(PrioWorker, state, sem, ch, nworkers, String( i ));
   od;
   SignalSemaphore(sem);
   for i in [1..nworkers] do
