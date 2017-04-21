@@ -83,9 +83,6 @@ ScheduleWithPriority := function(nworkers, initial, ch)
     workers[i] := CreateThread(PrioWorker, state, sem, ch, nworkers, String( i ));
   od;
   SignalSemaphore(sem);
-  for i in [1..nworkers] do
-    WaitThread(workers[i]);
-  od;
   return function()
     atomic state do
       state.cancelled := true;
