@@ -35,9 +35,9 @@ PrioWorker := function(state, sem, ch, nworkers, name)
         job := fail;
       else
 	job := GetPriorityQueue(state.pq);
-	AdoptObj(job);
 	prio := job[1];
 	job := job[2];
+	AdoptObj(job);
       fi;
     od;
     if job = fail then
