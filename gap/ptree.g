@@ -1,3 +1,8 @@
+InstallMethod( EQ,
+        [ IsRegion, IsRegion ],
+        
+  IsIdenticalObj );
+
 CreatePriorityQueue := function()
   return [];
 end;
