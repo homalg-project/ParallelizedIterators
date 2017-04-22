@@ -1,5 +1,5 @@
 DeclareCategory( "IsLiFo",
-        IsComponentObjectRep );
+        IsNonAtomicComponentObjectRep );
 
 DeclareRepresentation( "IsAugmentedLiFoOfIteratorsRep",
         IsLiFo,
