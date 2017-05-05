@@ -47,14 +47,15 @@ PrioWorker := function(state, sem, ch, nworkers, name)
     next := job[1](prio, job[2]);
     len := Length(next);
     atomic state do
-      if len = 0 then # Empty
+      if len = 0 then # next = [ ], the iterateor is done without producing leaves
         state.count := state.count - 1;
-      elif len = 1 then # [ [ leaves ] ]
+      elif len = 1 then # next = [ [ leaves ] ], the iterator is done producing leaves
+        ## write all produced leaves to the channel
         for leaf in next[1] do
 	  SendChannel(ch, leaf);
 	od;
 	state.count := state.count - 1;
-      elif len = 2 then # [ prio, state] -> next task step
+      elif len = 2 then # next = [ prio, state ] -> next task step
         Print( "popped next iterator at level ", prio, "\n" );
         InsertPriorityQueue(state.pq, prio, job);
 	SignalSemaphore(sem);
@@ -62,6 +63,10 @@ PrioWorker := function(state, sem, ch, nworkers, name)
 	SignalSemaphore(sem);
 	state.count := state.count + 1;
       fi;
+      ## the first worker who figures out that there are no jobs left
+      ## (this implies that no other worker is busy) should send
+      ## fail to the channel and help all workers finish by
+      ## increasing the work semaphore `nworkers' times.
       if state.count = 0 then
         SendChannel(ch, fail);
         for i in [1..nworkers] do
