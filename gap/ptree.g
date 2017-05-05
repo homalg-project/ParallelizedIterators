@@ -30,7 +30,9 @@ PrioWorker := function(state, sem, ch, nworkers, name)
   SetRegionName( "", name );
   Print( "I am ", name, ". Welcome to my local thread.\n" );
   while true do
+    Print( "Waiting for semaphore ... " );
     WaitSemaphore(sem);
+    Print( "done.\n" );
     atomic state do
       if state.cancelled then
         job := fail;
