@@ -34,6 +34,7 @@ PrioWorker := function(state, sem, ch, nworkers, name)
     WaitSemaphore(sem);
     Print( "Done.\n" );
     atomic state do
+      Print( "currently ", state.count, " jobs awaiting free workers\n" );
       if state.cancelled then
         job := fail;
       else
