@@ -3,10 +3,6 @@ InstallMethod( EQ,
         
   IsIdenticalObj );
 
-CreatePriorityQueue := function()
-  return [];
-end;
-
 InsertPriorityQueue := function(pq, prio, elem)
   if not IsBound( pq[prio] ) then
       pq[prio] := MigrateObj( [ elem ], pq );
