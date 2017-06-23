@@ -38,16 +38,22 @@ PrioWorker := function(state, sem, ch, nworkers, name)
       if state.cancelled then
         job := fail;
       else
+        Print( "GetPriorityQueue ...\n" );
 	job := GetPriorityQueue(state.pq);
+        Print( "Done.\n" );
 	prio := job[1];
 	job := job[2];
+        Print( "Adopt ...\n" );
 	AdoptObj(job);
+        Print( "Done.\n" );
       fi;
     od;
     if job = fail then
       return;
     fi;
+    Print( "Computing ...\n" );
     next := job[1](prio, job[2]);
+    Print( "Done.\n" );
     len := Length(next);
     atomic state do
       if len = 0 then # next = [ ], the iterateor is done without producing leaves
@@ -55,15 +61,19 @@ PrioWorker := function(state, sem, ch, nworkers, name)
       elif len = 1 then # next = [ [ leaves ] ], the iterator is done producing leaves
         ## write all produced leaves to the channel
         for leaf in next[1] do
+          Print( "Sending to channel ...\n" );
 	  SendChannel(ch, leaf);
+          Print( "Done.\n" );
 	od;
 	state.count := state.count - 1;
       elif len = 2 then # next = [ prio, state ] -> next task step
         Print( "popped next iterator at level ", prio, "\n" );
+        Print( "insert in priority queue ...\n" );
         InsertPriorityQueue(state.pq, prio, job);
-	SignalSemaphore(sem);
+        SignalSemaphore(sem);
         InsertPriorityQueue(state.pq, next[1], [job[1], next[2]]);
-	SignalSemaphore(sem);
+        SignalSemaphore(sem);
+        Print( "Done.\n" );
 	state.count := state.count + 1;
       fi;
       ## the first worker who figures out that there are no jobs left
