@@ -30,7 +30,7 @@ PrioWorker := function(state, sem, ch, nworkers, name)
   SetRegionName( "", name );
   Print( "I am ", name, ". Welcome to my local thread.\n" );
   while true do
-    Print( "Waiting for semaphore:\n" );
+    Print( "Waiting for semaphore ...\n" );
     WaitSemaphore(sem);
     Print( "Done.\n" );
     atomic state do
@@ -95,7 +95,6 @@ ScheduleWithPriority := function(nworkers, initial, ch)
   state := rec(
     pq := [[initial]],
     count := 1,
-    nworkers := nworkers,
     cancelled := false
   );
   ShareInternalObj(state,"state region");
@@ -110,7 +109,7 @@ ScheduleWithPriority := function(nworkers, initial, ch)
     shutdown := function()
       atomic state do
 	state.cancelled := true;
-	for i in [1..state.nworkers] do
+	for i in [1..nworkers] do
 	  SignalSemaphore(sem);
 	od;
 	SendChannel(ch, fail);
