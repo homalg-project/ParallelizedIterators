@@ -62,13 +62,13 @@ PrioWorker := function(state, sem, ch, nworkers, name)
       return;
     fi;
     atomic state do
-      state.(name) := MakeImmutable( "Computing ..." );
+      state.(name) := MakeImmutable( Concatenation( "Computing at priority level ", String( prio ), " ..." ) );
     od;
     Print( "Computing ...\n" );
     next := job[1](prio, job[2]);
     Print( "Done.\n" );
     atomic state do
-      state.(name) := MakeImmutable( "Computing ... DONE" );
+      state.(name) := MakeImmutable( Concatenation( "Computing at priority level ", String( prio ), " ... DONE" ) );
     od;
     len := Length(next);
     atomic state do
