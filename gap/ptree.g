@@ -113,6 +113,10 @@ end;
 ScheduleWithPriority := function(state, nworkers, initial, ch)
   local workers, sem, i, w;
   
+  for i in NamesOfComponents( state ) do
+      Unbind( state.(i) );
+  od;
+  
   state.pq := [[initial]];
   state.count := 1;
   state.cancelled := false;
