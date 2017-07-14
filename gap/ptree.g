@@ -30,49 +30,69 @@ PrioWorker := function(state, sem, ch, nworkers, name)
   SetRegionName( "", name );
   Print( "I am ", name, ". Welcome to my local thread.\n" );
   while true do
+    atomic state do
+      state.(name) := MakeImmutable( "Waiting for semaphore" );
+    od;
     Print( "Waiting for semaphore ...\n" );
     WaitSemaphore(sem);
+    atomic state do
+      state.(name) := MakeImmutable( "Waiting for semaphore ... DONE" );
+    od;
     Print( "Done.\n" );
     atomic state do
       Print( "currently ", state.count, " jobs awaiting free workers\n" );
       if state.cancelled then
         job := fail;
       else
+        state.(name) := MakeImmutable( "GetPriorityQueue" );
         Print( "GetPriorityQueue ...\n" );
 	job := GetPriorityQueue(state.pq);
+        state.(name) := MakeImmutable( "GetPriorityQueue ... DONE" );
         Print( "Done.\n" );
 	prio := job[1];
 	job := job[2];
+        state.(name) := MakeImmutable( "Adopt ..." );
         Print( "Adopt ...\n" );
 	AdoptObj(job);
+        state.(name) := MakeImmutable( "Adopt ... DONE" );
         Print( "Done.\n" );
       fi;
     od;
     if job = fail then
       return;
     fi;
+    atomic state do
+      state.(name) := MakeImmutable( "Computing ..." );
+    od;
     Print( "Computing ...\n" );
     next := job[1](prio, job[2]);
     Print( "Done.\n" );
+    atomic state do
+      state.(name) := MakeImmutable( "Computing ... DONE" );
+    od;
     len := Length(next);
     atomic state do
       if len = 0 then # next = [ ], the iterateor is done without producing leaves
         state.count := state.count - 1;
       elif len = 1 then # next = [ [ leaves ] ], the iterator is done producing leaves
         ## write all produced leaves to the channel
+        state.(name) := MakeImmutable( Concatenation( "Sending ", String( Length(next[1]) ), " leaves to channel ..." ) );
         Print( "Sending ", Length(next[1]), " leaves to channel ...\n" );
         for leaf in next[1] do
           SendChannel(ch, leaf);
         od;
+        state.(name) := MakeImmutable( Concatenation( "Sending ", String( Length(next[1]) ), " leaves to channel ... DONE" ) );
         Print( "Done.\n" );
 	state.count := state.count - 1;
       elif len = 2 then # next = [ prio, state ] -> next task step
+        state.(name) := MakeImmutable( Concatenation( "insert next iterator of level ", String( prio ), " in priority queue ..." ) );
         Print( "popped next iterator at level ", prio, "\n" );
         Print( "insert in priority queue ...\n" );
         InsertPriorityQueue(state.pq, prio, job);
         SignalSemaphore(sem);
         InsertPriorityQueue(state.pq, next[1], [job[1], next[2]]);
         SignalSemaphore(sem);
+        state.(name) := MakeImmutable( Concatenation( "insert next iterator of level ", String( prio ), " in priority queue ... DONE" ) );
         Print( "Done.\n" );
 	state.count := state.count + 1;
       fi;
@@ -90,15 +110,17 @@ PrioWorker := function(state, sem, ch, nworkers, name)
   od;
 end;
 
-ScheduleWithPriority := function(nworkers, initial, ch)
-  local state, workers, sem, i, w;
-  state := rec(
-    pq := [[initial]],
-    count := 1,
-    cancelled := false
-  );
+ScheduleWithPriority := function(state, nworkers, initial, ch)
+  local workers, sem, i, w;
+  
+  state.pq := [[initial]];
+  state.count := 1;
+  state.cancelled := false;
+  
   ShareInternalObj(state,"state region");
+  
   sem := CreateSemaphore();
+  
   workers := [];
   for i in [1..nworkers] do
     workers[i] := CreateThread(PrioWorker, state, sem, ch, nworkers, String( i ));
@@ -138,8 +160,8 @@ WithIterator := function(prio, iter)
   fi;
 end;
 
-ScheduleWithIterator := function(nworkers, iter, ch)
-  return ScheduleWithPriority(nworkers, [WithIterator, iter], ch);
+ScheduleWithIterator := function(state, nworkers, iter, ch)
+  return ScheduleWithPriority(state, nworkers, [WithIterator, iter], ch);
 end;
 
 TwoLevelIterator := function(list)
