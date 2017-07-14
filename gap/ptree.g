@@ -60,11 +60,11 @@ PrioWorker := function(state, sem, ch, nworkers, name)
         state.count := state.count - 1;
       elif len = 1 then # next = [ [ leaves ] ], the iterator is done producing leaves
         ## write all produced leaves to the channel
+        Print( "Sending ", Length(next[1]), " leaves to channel ...\n" );
         for leaf in next[1] do
-          Print( "Sending to channel ...\n" );
-	  SendChannel(ch, leaf);
-          Print( "Done.\n" );
-	od;
+          SendChannel(ch, leaf);
+        od;
+        Print( "Done.\n" );
 	state.count := state.count - 1;
       elif len = 2 then # next = [ prio, state ] -> next task step
         Print( "popped next iterator at level ", prio, "\n" );
