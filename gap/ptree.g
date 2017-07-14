@@ -40,7 +40,7 @@ PrioWorker := function(state, sem, ch, nworkers, name)
     od;
     Print( "Done.\n" );
     atomic state do
-      Print( "currently ", state.number_active_workers, " jobs awaiting free workers\n" );
+      Print( "currently ", state.number_of_current_jobs, " jobs awaiting free workers\n" );
       if state.cancelled then
         job := fail;
       else
@@ -73,7 +73,7 @@ PrioWorker := function(state, sem, ch, nworkers, name)
     len := Length(next);
     atomic state do
       if len = 0 then # next = [ ], the iterateor is done without producing leaves
-        state.number_active_workers := state.number_active_workers - 1;
+        state.number_of_current_jobs := state.number_of_current_jobs - 1;
       elif len = 1 then # next = [ [ leaves ] ], the iterator is done producing leaves
         ## write all produced leaves to the channel
         state.(name) := MakeImmutable( Concatenation( "Sending ", String( Length(next[1]) ), " leaves to channel ..." ) );
@@ -83,7 +83,7 @@ PrioWorker := function(state, sem, ch, nworkers, name)
         od;
         state.(name) := MakeImmutable( Concatenation( "Sending ", String( Length(next[1]) ), " leaves to channel ... DONE" ) );
         Print( "Done.\n" );
-	state.number_active_workers := state.number_active_workers - 1;
+	state.number_of_current_jobs := state.number_of_current_jobs - 1;
       elif len = 2 then # next = [ prio, state ] -> next task step
         state.(name) := MakeImmutable( Concatenation( "insert next iterator of level ", String( prio ), " in priority queue ..." ) );
         Print( "popped next iterator at level ", prio, "\n" );
@@ -94,13 +94,13 @@ PrioWorker := function(state, sem, ch, nworkers, name)
         SignalSemaphore(sem);
         state.(name) := MakeImmutable( Concatenation( "insert next iterator of level ", String( prio ), " in priority queue ... DONE" ) );
         Print( "Done.\n" );
-	state.number_active_workers := state.number_active_workers + 1;
+	state.number_of_current_jobs := state.number_of_current_jobs + 1;
       fi;
       ## the first worker who figures out that there are no jobs left
       ## (this implies that no other worker is busy) should send
       ## fail to the channel and help all workers finish by
       ## increasing the work semaphore `nworkers' times.
-      if state.number_active_workers = 0 then
+      if state.number_of_current_jobs = 0 then
         SendChannel(ch, fail);
         for i in [1..nworkers] do
 	  SignalSemaphore(sem);
@@ -118,7 +118,7 @@ ScheduleWithPriority := function(state, nworkers, initial, ch)
   od;
   
   state.pq := [[initial]];
-  state.number_active_workers := 1;
+  state.number_of_current_jobs := 1;
   state.cancelled := false;
   
   ShareInternalObj(state,"state region");
