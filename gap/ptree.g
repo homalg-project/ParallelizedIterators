@@ -83,6 +83,7 @@ PrioWorker := function(state, sem, ch, nworkers, name)
         od;
         state.(name) := MakeImmutable( Concatenation( "Sending ", String( Length(next[1]) ), " leaves to channel ... DONE" ) );
         Print( "Done.\n" );
+        state.number_of_leaves := state.number_of_leaves + Length(next[1]);
 	state.number_of_current_jobs := state.number_of_current_jobs - 1;
       elif len = 2 then # next = [ prio, state ] -> next task step
         state.(name) := MakeImmutable( Concatenation( "insert next iterator of level ", String( prio ), " in priority queue ..." ) );
@@ -119,6 +120,7 @@ ScheduleWithPriority := function(state, nworkers, initial, ch)
   
   state.pq := [[initial]];
   state.number_of_current_jobs := 1;
+  state.number_of_leaves := 0;
   state.cancelled := false;
   
   ShareInternalObj(state,"state region");
