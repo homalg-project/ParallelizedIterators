@@ -59,6 +59,9 @@ PrioWorker := function(state, sem, ch, nworkers, name)
       fi;
     od;
     if job = fail then
+      atomic state do
+        state.(name) := MakeImmutable( "Terminated!" );
+      od;
       return;
     fi;
     atomic state do
