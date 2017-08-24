@@ -24,9 +24,14 @@ GetPriorityQueue := function(pq)
   return result;
 end;
 
-PrioWorker := function(state, sem, ch, nworkers, name)
-  local prio, job, next, len, leaf, i;
-  name := Concatenation( "worker", name );
+PrioWorker := function(state, sem, ch)
+  local name, prio, job, next, len, leaf, i;
+  
+  atomic state do
+    state.current_number_of_workers := state.current_number_of_workers + 1;
+    state.last_assigned_number := state.last_assigned_number + 1;
+    name := Concatenation( "worker ", String( state.last_assigned_number ), " in thread #", String( ThreadID( CurrentThread( ) ) ) );
+  od;
   
   SetRegionName( "", name );
   Print( "I am ", name, ". Welcome to my local thread.\n" );
@@ -105,10 +110,10 @@ PrioWorker := function(state, sem, ch, nworkers, name)
       ## the first worker who figures out that there are no jobs left
       ## (this implies that no other worker is busy) should send
       ## fail to the channel and help all workers finish by
-      ## increasing the work semaphore `nworkers' times.
+      ## increasing the work semaphore `number_of_current_jobs' times.
       if state.number_of_current_jobs = 0 then
         SendChannel(ch, fail);
-        for i in [1..nworkers] do
+        for i in [ 1 .. state.current_number_of_workers ] do
 	  SignalSemaphore(sem);
 	od;
       fi;
@@ -117,7 +122,7 @@ PrioWorker := function(state, sem, ch, nworkers, name)
 end;
 
 ScheduleWithPriority := function(state, nworkers, initial, ch)
-  local workers, sem, i, w;
+  local worker, sem, i, w;
   
   for i in NamesOfComponents( state ) do
       Unbind( state.(i) );
@@ -127,28 +132,33 @@ ScheduleWithPriority := function(state, nworkers, initial, ch)
   state.number_of_current_jobs := 1;
   state.number_of_leaves := 0;
   state.canceled := false;
+  state.threads := [ ];
+  state.current_number_of_workers := 0;
+  state.last_assigned_number := 0;
+  state.maximal_number_of_workers := nworkers;
   
   ShareInternalObj(state,"state region");
   
   sem := CreateSemaphore();
   
-  workers := [];
-  for i in [1..nworkers] do
-    workers[i] := CreateThread(PrioWorker, state, sem, ch, nworkers, String( i ));
+  atomic state do
+    for i in [ 1 .. state.maximal_number_of_workers ] do
+      worker := CreateThread(PrioWorker, state, sem, ch);
+      Add( state.threads, worker );
+    od;
   od;
   
   SignalSemaphore(sem);
   
   return MakeReadOnly( rec(
-    workers := workers,
     shutdown := function()
       atomic state do
         state.canceled := true;
-	for i in [1..nworkers] do
+        for i in [ 1 .. state.current_number_of_workers ] do
 	  SignalSemaphore(sem);
 	od;
 	SendChannel(ch, fail);
-	for w in workers do
+	for w in state.threads do
 	  WaitThread(w);
 	od;
       od;
