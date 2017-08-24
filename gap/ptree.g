@@ -27,8 +27,10 @@ end;
 PrioWorker := function(state, sem, ch, nworkers, name)
   local prio, job, next, len, leaf, i;
   name := Concatenation( "worker", name );
+  
   SetRegionName( "", name );
   Print( "I am ", name, ". Welcome to my local thread.\n" );
+  
   while true do
     atomic state do
       state.(name) := MakeImmutable( "Waiting for semaphore" );
@@ -134,7 +136,9 @@ ScheduleWithPriority := function(state, nworkers, initial, ch)
   for i in [1..nworkers] do
     workers[i] := CreateThread(PrioWorker, state, sem, ch, nworkers, String( i ));
   od;
+  
   SignalSemaphore(sem);
+  
   return MakeReadOnly( rec(
     workers := workers,
     shutdown := function()
