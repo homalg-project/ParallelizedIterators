@@ -24,13 +24,15 @@ GetPriorityQueue := function(pq)
   return result;
 end;
 
-PrioWorker := function(state, sem, ch)
-  local name, prio, job, next, len, leaf, i;
+PrioWorker := function(state)
+  local name, sem, ch, prio, job, next, len, leaf, i;
   
   atomic state do
     state.current_number_of_workers := state.current_number_of_workers + 1;
     state.last_assigned_number := state.last_assigned_number + 1;
     name := Concatenation( "worker ", String( state.last_assigned_number ), " in thread #", String( ThreadID( CurrentThread( ) ) ) );
+    sem := state.semaphore;
+    ch := state.leaf_channel;
   od;
   
   SetRegionName( "", name );
@@ -128,7 +130,11 @@ ScheduleWithPriority := function(state, nworkers, initial, ch)
       Unbind( state.(i) );
   od;
   
+  sem := CreateSemaphore();
+  
   state.pq := [[initial]];
+  state.semaphore := sem;
+  state.leaf_channel := ch;
   state.number_of_current_jobs := 1;
   state.number_of_leaves := 0;
   state.canceled := false;
@@ -139,11 +145,9 @@ ScheduleWithPriority := function(state, nworkers, initial, ch)
   
   ShareInternalObj(state,"state region");
   
-  sem := CreateSemaphore();
-  
   atomic state do
     for i in [ 1 .. state.maximal_number_of_workers ] do
-      worker := CreateThread(PrioWorker, state, sem, ch);
+      worker := CreateThread(PrioWorker, state);
       Add( state.threads, worker );
     od;
   od;
