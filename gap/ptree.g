@@ -123,6 +123,18 @@ PrioWorker := function(state)
   od;
 end;
 
+LaunchWorkers := function( state )
+  local n, i, worker;
+  
+  atomic state do
+    n := state.maximal_number_of_workers - state.current_number_of_workers;
+    for i in [ 1 .. n ] do
+      worker := CreateThread(PrioWorker, state);
+      Add( state.threads, worker );
+    od;
+  od;
+end;
+
 ScheduleWithPriority := function(state, nworkers, initial, ch)
   local worker, sem, i, w;
   
@@ -145,12 +157,7 @@ ScheduleWithPriority := function(state, nworkers, initial, ch)
   
   ShareInternalObj(state,"state region");
   
-  atomic state do
-    for i in [ 1 .. state.maximal_number_of_workers ] do
-      worker := CreateThread(PrioWorker, state);
-      Add( state.threads, worker );
-    od;
-  od;
+  LaunchWorkers( state );
   
   SignalSemaphore(sem);
   
