@@ -41,7 +41,7 @@ PrioWorker := function(state, sem, ch, nworkers, name)
     Print( "Done.\n" );
     atomic state do
       Print( "currently ", state.number_of_current_jobs, " jobs awaiting free workers\n" );
-      if state.cancelled then
+      if state.canceled then
         job := fail;
       else
         state.(name) := MakeImmutable( "GetPriorityQueue" );
@@ -124,7 +124,7 @@ ScheduleWithPriority := function(state, nworkers, initial, ch)
   state.pq := [[initial]];
   state.number_of_current_jobs := 1;
   state.number_of_leaves := 0;
-  state.cancelled := false;
+  state.canceled := false;
   
   ShareInternalObj(state,"state region");
   
@@ -139,7 +139,7 @@ ScheduleWithPriority := function(state, nworkers, initial, ch)
     workers := workers,
     shutdown := function()
       atomic state do
-	state.cancelled := true;
+        state.canceled := true;
 	for i in [1..nworkers] do
 	  SignalSemaphore(sem);
 	od;
