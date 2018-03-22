@@ -303,7 +303,7 @@ LaunchWorkers := function( evaluate_function, state )
   od;
 end;
 
-ScheduleWithPriority := function(state, nworkers, iter, ch)
+ParallelyEvaluateRecursiveIterator := function(state, nworkers, iter, ch)
   local sem, locally_uniform, worker, i, w;
   
   for i in NamesOfComponents( state ) do
@@ -353,10 +353,6 @@ ScheduleWithPriority := function(state, nworkers, iter, ch)
       od;
     end
   ));
-end;
-
-ScheduleWithIterator := function(state, nworkers, iter, ch)
-  return ScheduleWithPriority(state, nworkers, iter, ch);
 end;
 
 TwoLevelIterator := function(list)
