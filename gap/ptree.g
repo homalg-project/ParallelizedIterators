@@ -339,7 +339,7 @@ ParallelyEvaluateRecursiveIterator := function(state, nworkers, iter, ch)
   
   SignalSemaphore(sem);
   
-  return MakeReadOnly( rec(
+  return MakeReadOnlyObj( rec(
     shutdown := function()
       atomic state do
         state.canceled := true;
