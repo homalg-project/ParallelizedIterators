@@ -88,7 +88,7 @@ EvaluateLocallyUniformRecursiveIterator := function(state)
       atomic state do
         state.(name) := MakeImmutable( "Terminated!" );
       od;
-      return;
+      QUIT_GAP();
     fi;
     atomic state do
       state.(name) := MakeImmutable( Concatenation( "Computing at priority level ", String( prio ), " ..." ) );
