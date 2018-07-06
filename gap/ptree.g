@@ -56,35 +56,35 @@ EvaluateLocallyUniformRecursiveIterator := function(state)
   od;
   
   SetRegionName( "", name );
-  Print( "I am ", name, ". Welcome to my local thread.\n" );
+  Info( InfoPtree, 2, "I am ", name, ". Welcome to my local thread.\n" );
   
   while true do
     atomic state do
       state.(name) := MakeImmutable( "Waiting for semaphore" );
     od;
-    Print( "Waiting for semaphore ...\n" );
+    Info( InfoPtree, 2, "Waiting for semaphore ...\n" );
     WaitSemaphore(sem);
     atomic state do
       state.(name) := MakeImmutable( "Waiting for semaphore ... DONE" );
     od;
-    Print( "Done.\n" );
+    Info( InfoPtree, 2, "Done.\n" );
     atomic state do
-      Print( "currently ", state.number_of_current_jobs, " jobs awaiting free workers\n" );
+      Info( InfoPtree, 2, "currently ", state.number_of_current_jobs, " jobs awaiting free workers\n" );
       if state.canceled then
         iter := fail;
       else
         state.(name) := MakeImmutable( "GetPriorityQueue" );
-        Print( "GetPriorityQueue ...\n" );
+        Info( InfoPtree, 2, "GetPriorityQueue ...\n" );
 	iter := GetPriorityQueue(state.pq);
         state.(name) := MakeImmutable( "GetPriorityQueue ... DONE" );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
 	prio := iter[1];
 	iter := iter[2];
         state.(name) := MakeImmutable( "Adopt ..." );
-        Print( "Adopt ...\n" );
+        Info( InfoPtree, 2, "Adopt ...\n" );
 	AdoptObj(iter);
         state.(name) := MakeImmutable( "Adopt ... DONE" );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
       fi;
     od;
     if iter = fail then
@@ -96,9 +96,9 @@ EvaluateLocallyUniformRecursiveIterator := function(state)
     atomic state do
       state.(name) := MakeImmutable( Concatenation( "Computing at priority level ", String( prio ), " ..." ) );
     od;
-    Print( "Computing ...\n" );
+    Info( InfoPtree, 2, "Computing ...\n" );
     next := NextLocallyUniformRecursiveIterator(prio, iter);
-    Print( "Done.\n" );
+    Info( InfoPtree, 2, "Done.\n" );
     atomic state do
       state.(name) := MakeImmutable( Concatenation( "Computing at priority level ", String( prio ), " ... DONE" ) );
     od;
@@ -112,12 +112,12 @@ EvaluateLocallyUniformRecursiveIterator := function(state)
         
         ## write all produced leaves to the channel
         state.(name) := MakeImmutable( Concatenation( "Sending ", String( Length(next[1]) ), " leaves to channel ..." ) );
-        Print( "Sending ", Length(next[1]), " leaves to channel ...\n" );
+        Info( InfoPtree, 2, "Sending ", Length(next[1]), " leaves to channel ...\n" );
         for leaf in next[1] do
           SendChannel(ch, leaf);
         od;
         state.(name) := MakeImmutable( Concatenation( "Sending ", String( Length(next[1]) ), " leaves to channel ... DONE" ) );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
         
         state.number_of_leaves := state.number_of_leaves + Length(next[1]);
         state.number_of_current_jobs := state.number_of_current_jobs - 1;
@@ -126,19 +126,19 @@ EvaluateLocallyUniformRecursiveIterator := function(state)
         
         ## insert next iterator into priority queue
         state.(name) := MakeImmutable( Concatenation( "insert next iterator of level ", String( next[1] ), " in priority queue ..." ) );
-        Print( "insert next iterator of level ", next[1], " in priority queue ...\n" );
+        Info( InfoPtree, 2, "insert next iterator of level ", next[1], " in priority queue ...\n" );
         InsertPriorityQueue(state.pq, next[1], next[2]);
         SignalSemaphore(sem);
         state.(name) := MakeImmutable( Concatenation( "insert next iterator of level ", String( next[1] ), " in priority queue ... DONE" ) );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
         
         ## return iterator to priority queue
         state.(name) := MakeImmutable( Concatenation( "return iterator of level ", String( prio ), " to priority queue ..." ) );
-        Print( "return iterator of level ", prio, " to priority queue ...\n" );
+        Info( InfoPtree, 2, "return iterator of level ", prio, " to priority queue ...\n" );
         InsertPriorityQueue(state.pq, prio, iter);
         SignalSemaphore(sem);
         state.(name) := MakeImmutable( Concatenation( "return iterator of level ", String( prio ), " to priority queue ... DONE" ) );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
         
 	state.number_of_current_jobs := state.number_of_current_jobs + 1;
         
@@ -187,35 +187,35 @@ EvaluateRecursiveIterator := function(state)
   od;
   
   SetRegionName( "", name );
-  Print( "I am ", name, ". Welcome to my local thread.\n" );
+  Info( InfoPtree, 2, "I am ", name, ". Welcome to my local thread.\n" );
   
   while true do
     atomic state do
       state.(name) := MakeImmutable( "Waiting for semaphore" );
     od;
-    Print( "Waiting for semaphore ...\n" );
+    Info( InfoPtree, 2, "Waiting for semaphore ...\n" );
     WaitSemaphore(sem);
     atomic state do
       state.(name) := MakeImmutable( "Waiting for semaphore ... DONE" );
     od;
-    Print( "Done.\n" );
+    Info( InfoPtree, 2, "Done.\n" );
     atomic state do
-      Print( "currently ", state.number_of_current_jobs, " jobs awaiting free workers\n" );
+      Info( InfoPtree, 2, "currently ", state.number_of_current_jobs, " jobs awaiting free workers\n" );
       if state.canceled then
         iter := fail;
       else
         state.(name) := MakeImmutable( "GetPriorityQueue" );
-        Print( "GetPriorityQueue ...\n" );
+        Info( InfoPtree, 2, "GetPriorityQueue ...\n" );
 	iter := GetPriorityQueue(state.pq);
         state.(name) := MakeImmutable( "GetPriorityQueue ... DONE" );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
 	prio := iter[1];
 	iter := iter[2];
         state.(name) := MakeImmutable( "Adopt ..." );
-        Print( "Adopt ...\n" );
+        Info( InfoPtree, 2, "Adopt ...\n" );
 	AdoptObj(iter);
         state.(name) := MakeImmutable( "Adopt ... DONE" );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
       fi;
     od;
     if iter = fail then
@@ -227,9 +227,9 @@ EvaluateRecursiveIterator := function(state)
     atomic state do
       state.(name) := MakeImmutable( Concatenation( "Computing at priority level ", String( prio ), " ..." ) );
     od;
-    Print( "Computing ...\n" );
+    Info( InfoPtree, 2, "Computing ...\n" );
     next := NextRecursiveIterator(prio, iter);
-    Print( "Done.\n" );
+    Info( InfoPtree, 2, "Done.\n" );
     atomic state do
       state.(name) := MakeImmutable( Concatenation( "Computing at priority level ", String( prio ), " ... DONE" ) );
     od;
@@ -243,38 +243,38 @@ EvaluateRecursiveIterator := function(state)
         
         ## write produced leaf to the channel
         state.(name) := MakeImmutable( "Sending a leaf to channel ..." );
-        Print( "Sending a leaf to channel ...\n" );
+        Info( InfoPtree, 2, "Sending a leaf to channel ...\n" );
         SendChannel(ch, next[1][1]);
         state.(name) := MakeImmutable( "Sending a leaf to channel ... DONE" );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
         
         state.number_of_leaves := state.number_of_leaves + 1;
         
         ## return iterator to priority queue
         state.(name) := MakeImmutable( Concatenation( "return iterator of level ", String( prio ), " to priority queue ..." ) );
-        Print( "return iterator of level ", prio, " to priority queue ...\n" );
+        Info( InfoPtree, 2, "return iterator of level ", prio, " to priority queue ...\n" );
         InsertPriorityQueue(state.pq, prio, iter);
         SignalSemaphore(sem);
         state.(name) := MakeImmutable( Concatenation( "return iterator of level ", String( prio ), " to priority queue ... DONE" ) );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
         
       elif len = 2 then # next = [ prio, iter ] -> next task step
         
         ## insert next iterator into priority queue
         state.(name) := MakeImmutable( Concatenation( "insert next iterator of level ", String( next[1] ), " in priority queue ..." ) );
-        Print( "insert next iterator of level ", next[1], " in priority queue ...\n" );
+        Info( InfoPtree, 2, "insert next iterator of level ", next[1], " in priority queue ...\n" );
         InsertPriorityQueue(state.pq, next[1], next[2]);
         SignalSemaphore(sem);
         state.(name) := MakeImmutable( Concatenation( "insert next iterator of level ", String( next[1] ), " in priority queue ... DONE" ) );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
         
         ## return iterator to priority queue
         state.(name) := MakeImmutable( Concatenation( "return iterator of level ", String( prio ), " to priority queue ..." ) );
-        Print( "return iterator of level ", prio, " to priority queue ...\n" );
+        Info( InfoPtree, 2, "return iterator of level ", prio, " to priority queue ...\n" );
         InsertPriorityQueue(state.pq, prio, iter);
         SignalSemaphore(sem);
         state.(name) := MakeImmutable( Concatenation( "return iterator of level ", String( prio ), " to priority queue ... DONE" ) );
-        Print( "Done.\n" );
+        Info( InfoPtree, 2, "Done.\n" );
         
 	state.number_of_current_jobs := state.number_of_current_jobs + 1;
         
