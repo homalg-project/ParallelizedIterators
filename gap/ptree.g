@@ -1,3 +1,6 @@
+DeclareInfoClass( "InfoPtree" );
+SetInfoLevel( InfoPtree, 1 );
+
 InsertPriorityQueue := function(pq, prio, elem)
   if not IsBound( pq[prio] ) then
       pq[prio] := MigrateObj( [ elem ], pq );
