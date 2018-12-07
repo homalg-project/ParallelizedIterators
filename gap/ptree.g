@@ -1,3 +1,6 @@
+LoadPackage( "ToolsForHomalg" );
+LoadPackage( "IO" );
+
 DeclareInfoClass( "InfoPtree" );
 SetInfoLevel( InfoPtree, 1 );
 
@@ -104,6 +107,10 @@ EvaluateLocallyUniformRecursiveIterator := function(state)
     od;
     len := Length(next);
     atomic state do
+      
+      state.WallTime := state.WallTime_func();
+      state.CPUTimes := state.CPUTimes_func();
+      
       if len = 0 then # next = [ ], the iterateor is done without producing leaves
         
         state.number_of_current_jobs := state.number_of_current_jobs - 1;
@@ -114,7 +121,7 @@ EvaluateLocallyUniformRecursiveIterator := function(state)
         state.(name) := MakeImmutable( Concatenation( "Sending ", String( Length(next[1]) ), " leaves to channel ..." ) );
         Info( InfoPtree, 2, "Sending ", Length(next[1]), " leaves to channel ..." );
         for leaf in next[1] do
-          SendChannel(ch, leaf);
+          SendChannel(ch, [ leaf, state.WallTime.total, state.CPUTimes.total ] );
         od;
         state.(name) := MakeImmutable( Concatenation( "Sending ", String( Length(next[1]) ), " leaves to channel ... DONE" ) );
         Info( InfoPtree, 2, "Done." );
@@ -150,6 +157,7 @@ EvaluateLocallyUniformRecursiveIterator := function(state)
       ## increasing the work semaphore `number_of_current_jobs' times.
       if state.number_of_current_jobs = 0 then
         SendChannel(ch, fail);
+        SendChannel(ch, [ state.StartTimeStamp, state.WallTime.total, state.CPUTimes.total ]);
         for i in [ 1 .. state.current_number_of_workers ] do
 	  SignalSemaphore(sem);
 	od;
@@ -235,6 +243,10 @@ EvaluateRecursiveIterator := function(state)
     od;
     len := Length(next);
     atomic state do
+      
+      state.WallTime := state.WallTime_func();
+      state.CPUTimes := state.CPUTimes_func();
+      
       if len = 0 then # next = [ ], the iterateor is done without producing leaves
         
         state.number_of_current_jobs := state.number_of_current_jobs - 1;
@@ -244,7 +256,7 @@ EvaluateRecursiveIterator := function(state)
         ## write produced leaf to the channel
         state.(name) := MakeImmutable( "Sending a leaf to channel ..." );
         Info( InfoPtree, 2, "Sending a leaf to channel ..." );
-        SendChannel(ch, next[1][1]);
+        SendChannel(ch, [ next[1][1], state.WallTime.total, state.CPUTimes.total ] );
         state.(name) := MakeImmutable( "Sending a leaf to channel ... DONE" );
         Info( InfoPtree, 2, "Done." );
         
@@ -286,6 +298,7 @@ EvaluateRecursiveIterator := function(state)
       ## increasing the work semaphore `number_of_current_jobs' times.
       if state.number_of_current_jobs = 0 then
         SendChannel(ch, fail);
+        SendChannel(ch, [ state.StartTimeStamp, state.WallTime.total, state.CPUTimes.total ]);
         for i in [ 1 .. state.current_number_of_workers ] do
 	  SignalSemaphore(sem);
 	od;
@@ -331,6 +344,28 @@ ParallelyEvaluateRecursiveIterator := function(state, nworkers, iter, ch)
   state.current_number_of_workers := 0;
   state.last_assigned_number := 0;
   state.maximal_number_of_workers := nworkers;
+  
+  state.StartTimeStamp := GetTimeOfDay();
+  
+  state.startWallTime := IO_gettimeofday();
+  state.startWallTime.total := 1000 * state.startWallTime.tv_sec + Int( Float( state.startWallTime.tv_usec / 1000 ) );
+  state.WallTime_func :=
+    function( )
+      local WallTime;
+      WallTime := IO_gettimeofday();
+      WallTime.total :=  1000 * WallTime.tv_sec + Int( Float( WallTime.tv_usec / 1000 ) ) - state.startWallTime.total;
+      return WallTime;
+  end;
+  
+  state.startCPUTimes := Runtimes();
+  state.startCPUTimes.total := state.startCPUTimes.system_time + state.startCPUTimes.system_time_children + state.startCPUTimes.user_time + state.startCPUTimes.user_time_children;
+  state.CPUTimes_func :=
+    function( )
+      local CPUTimes;
+      CPUTimes := Runtimes();
+      CPUTimes.total := CPUTimes.system_time + CPUTimes.system_time_children + CPUTimes.user_time + CPUTimes.user_time_children - state.startCPUTimes.total;
+      return CPUTimes;
+  end;
   
   ShareInternalObj(state,"state region");
   
