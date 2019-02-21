@@ -2,7 +2,7 @@ LoadPackage( "ToolsForHomalg" );
 LoadPackage( "IO" );
 
 DeclareInfoClass( "InfoPtree" );
-SetInfoLevel( InfoPtree, 1 );
+SetInfoLevel( InfoPtree, 4 );
 
 InsertPriorityQueue := function(pq, prio, elem)
   if not IsBound( pq[prio] ) then
