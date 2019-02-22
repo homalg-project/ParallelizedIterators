@@ -1,18 +1,24 @@
-LoadPackage( "ToolsForHomalg" );
-LoadPackage( "IO" );
+#
+# ParallelizedIterators: Parallely evaluating recursive iterators
+#
+# Declarations
+#
 
-DeclareInfoClass( "InfoPtree" );
-SetInfoLevel( InfoPtree, 4 );
+SetInfoLevel( InfoPtree, 1 );
 
-InsertPriorityQueue := function(pq, prio, elem)
+##
+InstallGlobalFunction( InsertPriorityQueue,
+function(pq, prio, elem)
   if not IsBound( pq[prio] ) then
       pq[prio] := MigrateObj( [ elem ], pq );
   else
       Add( pq[prio], MigrateObj( elem, pq ) );
   fi;
-end;
+end );
 
-GetPriorityQueue := function(pq)
+##
+InstallGlobalFunction( GetPriorityQueue,
+function(pq)
   local len, result;
   len := Length(pq);
   if len = 0 then
@@ -23,9 +29,11 @@ GetPriorityQueue := function(pq)
       Unbind(pq[len]);
   fi;
   return result;
-end;
+end );
 
-NextLocallyUniformRecursiveIterator := function(prio, iter)
+##
+InstallGlobalFunction( NextLocallyUniformRecursiveIterator,
+function(prio, iter)
   local next, leaves;
   
   if IsDoneIterator(iter) then
@@ -45,9 +53,11 @@ NextLocallyUniformRecursiveIterator := function(prio, iter)
   od;
   
   return [ leaves ];
-end;
+end );
 
-EvaluateLocallyUniformRecursiveIterator := function(state)
+##
+InstallGlobalFunction( EvaluateLocallyUniformRecursiveIterator,
+function(state)
   local name, sem, ch, prio, iter, next, len, leaf, i;
   
   atomic state do
@@ -164,9 +174,11 @@ EvaluateLocallyUniformRecursiveIterator := function(state)
       fi;
     od;
   od;
-end;
+end );
 
-NextRecursiveIterator := function(prio, iter)
+##
+InstallGlobalFunction( NextRecursiveIterator,
+function(prio, iter)
   local next;
   
   if IsDoneIterator(iter) then
@@ -181,9 +193,11 @@ NextRecursiveIterator := function(prio, iter)
   
   return [ [ next ] ];
   
-end;
+end );
 
-EvaluateRecursiveIterator := function(state)
+##
+InstallGlobalFunction( EvaluateRecursiveIterator,
+function(state)
   local name, sem, ch, prio, iter, next, len, leaf, i;
   
   atomic state do
@@ -305,9 +319,11 @@ EvaluateRecursiveIterator := function(state)
       fi;
     od;
   od;
-end;
+end );
 
-LaunchWorkers := function( evaluate_function, state )
+##
+InstallGlobalFunction( LaunchWorkers,
+function( evaluate_function, state )
   local n, i, worker;
   
   atomic state do
@@ -317,9 +333,11 @@ LaunchWorkers := function( evaluate_function, state )
       Add( state.threads, worker );
     od;
   od;
-end;
+end );
 
-ParallelyEvaluateRecursiveIterator := function(state, nworkers, iter, ch)
+##
+InstallGlobalFunction( ParallelyEvaluateRecursiveIterator,
+function(state, nworkers, iter, ch)
   local sem, locally_uniform, worker, i, w;
   
   for i in NamesOfComponents( state ) do
@@ -391,12 +409,4 @@ ParallelyEvaluateRecursiveIterator := function(state, nworkers, iter, ch)
       od;
     end
   ));
-end;
-
-TwoLevelIterator := function(list)
-  return Iterator(List(list, Iterator));
-end;
-
-ThreeLevelIterator := function(list)
-  return Iterator(List(list, TwoLevelIterator));
-end;
+end );

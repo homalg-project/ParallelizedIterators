@@ -1,18 +1,26 @@
-DeclareCategory( "IsLiFo",
-        IsNonAtomicComponentObjectRep );
+#
+# LiFoOfIterators
+#
+# Implementations
+#
 
+##
 DeclareRepresentation( "IsAugmentedLiFoOfIteratorsRep",
         IsLiFo,
         [ "LiFo", "info" ] );
 
+##
 BindGlobal( "TheFamilyOfLiFos",
         NewFamily( "TheFamilyOfLiFos" ) );
 
+##
 BindGlobal( "TheTypeAugmentedLiFoOfIterators",
         NewType( TheFamilyOfLiFos,
                 IsAugmentedLiFoOfIteratorsRep ) );
 
-CreateAugmentedLiFoOfIterators := function( )
+##
+InstallGlobalFunction( CreateAugmentedLiFoOfIterators,
+function( )
   local L;
   
   L := rec( LiFo := [ ], info := [ ] );
@@ -22,10 +30,10 @@ CreateAugmentedLiFoOfIterators := function( )
   
   return L;
   
-end;
+end );
 
 ##
-InstallOtherMethod( Length,
+InstallMethod( Length,
         "for LiFos",
         [ IsLiFo ],
 
@@ -34,10 +42,6 @@ InstallOtherMethod( Length,
     return Length( L!.LiFo );
     
 end );
-
-DeclareOperation( "Push", [ IsLiFo, IsObject ] );
-DeclareOperation( "InfoOfLiFo", [ IsLiFo ] );
-DeclareOperation( "Pop", [ IsLiFo ] );
 
 ##
 InstallMethod( Push,
