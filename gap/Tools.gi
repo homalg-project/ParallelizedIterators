@@ -5,6 +5,9 @@
 #
 
 ##
+SetInfoLevel( InfoRecursiveIterator, 1 );
+
+##
 InstallGlobalFunction( TwoLevelIterator,
 function(list)
   return Iterator(List(list, Iterator));
