@@ -11,7 +11,7 @@ SetPackageInfo( rec(
 PackageName := "ParallelizedIterators",
 Subtitle := "Parallely evaluate recursive iterators",
 Version := Maximum( [
-                   "2018.12.08", ## Mohamed's version
+                   "2018.12.09", ## Mohamed's version
                    ## this line prevents merge conflicts
                    "2017.04.21", ## Reimer's version
                    ## this line prevents merge conflicts
