@@ -1,5 +1,5 @@
 #
-# Tools
+# ParallelizedIterators: Tools
 #
 # Declarations
 #
@@ -7,9 +7,6 @@
 #! @Chapter Tools
 
 #! @Section Tools
-
-#!
-DeclareInfoClass( "InfoRecursiveIterator" );
 
 #! @Description
 #!  <C>IteratorByUncertainFunction</C> returns a (mutable) iterator

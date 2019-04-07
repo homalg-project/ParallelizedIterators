@@ -1,6 +1,12 @@
+#
+# ParallelizedIterators: Serially evaluate recursive iterators
+#
+# Implementations
+#
+
 ##
 InstallGlobalFunction( SeriallyEvaluateRecursiveIterator,
-function(iter)
+  function(iter)
     local stack, previousPath, firstIter, firstInfo, r;
 
     stack := CreateAugmentedLiFoOfIterators();
@@ -12,8 +18,8 @@ function(iter)
 
     r := rec(
         NextIterator := function( i )
-        local next;
-        while Length(stack) > 0 do
+          local next;
+          while Length(stack) > 0 do
             next := Pop(stack);
             #Display(next);
             if next = fail then
@@ -26,26 +32,25 @@ function(iter)
                 #leaf found.
                 return next;
             fi;
-        od;
-        return fail;
+          od;
+          return fail;
         end,
 
         IsDoneIterator := function( i )
-        if Length(stack) >0 then
-            return false;
-        fi;
-        return true;
-            end,
+          if Length(stack) >0 then
+              return false;
+          fi;
+          return true;
+        end,
 
         ShallowCopy := function( i )
-        return
-        rec(
+          return
+          rec(
             NextIterator := i!.NextIterator,
             IsDoneIterator := i!.IsDoneIterator,
             ShallowCopy := i!.ShallowCopy
-        );
+          );
         end
     );
     return IteratorByFunctions( r );
-    end;
 end );

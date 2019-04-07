@@ -1,4 +1,5 @@
-# ParallelizedIterators: Parallely evaluate recursive iterators
+#
+# ParallelizedIterators: Serially evaluate recursive iterators
 #
 # Declarations
 #
@@ -13,3 +14,4 @@
 #! @Returns an iterator of leaves.
 #! @Arguments iter
 DeclareGlobalFunction( "SeriallyEvaluateRecursiveIterator" );
+#! @InsertSystem SeriallyEvaluateCatalanIterator

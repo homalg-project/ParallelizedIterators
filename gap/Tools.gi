@@ -1,11 +1,8 @@
 #
-# Tools
+# ParallelizedIterators: Tools
 #
 # Implementations
 #
-
-##
-SetInfoLevel( InfoRecursiveIterator, 1 );
 
 ##
 InstallGlobalFunction( IteratorByUncertainFunction,

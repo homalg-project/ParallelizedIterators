@@ -6,8 +6,10 @@
 
 ReadPackage( "ParallelizedIterators", "gap/LiFoOfIterators.gd");
 
+ReadPackage( "ParallelizedIterators", "gap/SeriallyEvaluateRecursiveIterator.gd");
+
 if IsHPCGAP then
-ReadPackage( "ParallelizedIterators", "gap/ptree.gd");
+ReadPackage( "ParallelizedIterators", "gap/ParallelyEvaluateRecursiveIterator.gd");
 else
 Info( InfoWarning, 1, "Warning: ParallelyEvaluateRecursiveIterator can only be load in HPCGAP" );
 fi;

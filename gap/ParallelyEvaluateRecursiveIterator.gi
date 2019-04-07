@@ -1,10 +1,14 @@
 #
 # ParallelizedIterators: Parallely evaluating recursive iterators
 #
-# Declarations
+# Implementations
 #
 
+##
 SetInfoLevel( InfoPtree, 1 );
+
+##
+SetInfoLevel( InfoRecursiveIterator, 1 );
 
 ##
 InstallGlobalFunction( InsertPriorityQueue,

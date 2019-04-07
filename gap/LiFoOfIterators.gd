@@ -1,5 +1,5 @@
 #
-# LiFoOfIterators
+# ParallelizedIterators: LiFo Of iterators
 #
 # Declarations
 #

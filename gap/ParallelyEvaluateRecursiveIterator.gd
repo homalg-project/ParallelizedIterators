@@ -6,10 +6,13 @@
 
 #! @Chapter Parallelized Iterators
 
-#! @Section Info Class
+#! @Section Info Classes
 
 #!
 DeclareInfoClass( "InfoPtree" );
+
+#!
+DeclareInfoClass( "InfoRecursiveIterator" );
 
 #! @Section Parallely evaluate recursive iterators
 
@@ -44,3 +47,4 @@ DeclareGlobalFunction( "LaunchWorkers" );
 #! @Returns a record
 #! @Arguments state, n, iter, ch
 DeclareGlobalFunction( "ParallelyEvaluateRecursiveIterator" );
+#! @InsertSystem ParallelyEvaluateCatalanIterator
