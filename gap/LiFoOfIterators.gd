@@ -4,7 +4,7 @@
 # Declarations
 #
 
-#! @Chapter Parallelized Iterators
+#! @Chapter LiFo of iterators
 
 #! @Section Info Class
 

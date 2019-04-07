@@ -4,7 +4,7 @@
 # Declarations
 #
 
-#! @Chapter Parallelized Iterators
+#! @Chapter Parallely evaluate recursive iterators
 
 #! @Section Info Classes
 

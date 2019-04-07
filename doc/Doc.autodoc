@@ -1,1 +1,7 @@
-@Chapter Parallelized Iterators
+@Chapter LiFo of iterators
+
+@Chapter Parallely evaluate recursive iterators
+
+@Chapter Serially evaluate recursive iterators
+
+@Chapter Tools

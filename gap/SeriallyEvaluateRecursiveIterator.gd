@@ -4,9 +4,9 @@
 # Declarations
 #
 
-#! @Chapter Serial Iterators
+#! @Chapter Serially evaluate recursive iterators
 
-#! @Section Serial evaluate recursive iterators
+#! @Section Serially evaluate recursive iterators
 
 #! @Description
 #!  Serially evaluate the recursive iterator <A>iter</A>.
