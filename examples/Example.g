@@ -1,5 +1,5 @@
 #! @System example
-# This example enumerates all full binary trees with 7 leaves. The number is the sixth Catalan number.
+# This example enumerates all full binary trees with 9 leaves. The number is the sixth Catalan number.
 
 LoadPackage( "ParallelizedIterators" );
 Read( "CatalanIterator.g" );
@@ -10,7 +10,7 @@ state := rec( );
 numberOfThreads := 2;
 #! 2
 n := 9;
-#! 7
+#! 9
 recursiveIterator := IteratorCatalanTree( [[1 .. n]], [[1]] );
 #! <iterator>
 iterChannel := CreateChannel( 10000 );
