@@ -26,4 +26,3 @@ while true do
 od;
 i;
 #! 1430
-
