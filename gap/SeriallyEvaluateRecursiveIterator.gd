@@ -14,4 +14,4 @@
 #! @Returns an iterator of leaves.
 #! @Arguments iter
 DeclareGlobalFunction( "SeriallyEvaluateRecursiveIterator" );
-#! @InsertSystem SeriallyEvaluateCatalanIterator
+#! @InsertChunk SeriallyEvaluateCatalanIterator

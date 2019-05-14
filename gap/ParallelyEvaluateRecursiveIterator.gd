@@ -47,4 +47,4 @@ DeclareGlobalFunction( "LaunchWorkers" );
 #! @Returns a record
 #! @Arguments state, n, iter, ch
 DeclareGlobalFunction( "ParallelyEvaluateRecursiveIterator" );
-#! @InsertSystem ParallelyEvaluateCatalanIterator
+#! @InsertChunk ParallelyEvaluateCatalanIterator
