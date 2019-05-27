@@ -119,6 +119,9 @@ function(state)
     atomic state do
       state.(name) := MakeImmutable( Concatenation( "Computing at priority level ", String( prio ), " ... DONE" ) );
     od;
+    
+    state.number_of_computed_steps := state.number_of_computed_steps + 1;
+    
     len := Length(next);
     atomic state do
       
@@ -259,6 +262,9 @@ function(state)
     atomic state do
       state.(name) := MakeImmutable( Concatenation( "Computing at priority level ", String( prio ), " ... DONE" ) );
     od;
+    
+    state.number_of_computed_steps := state.number_of_computed_steps + 1;
+    
     len := Length(next);
     atomic state do
       
@@ -361,6 +367,7 @@ function(state, nworkers, iter, ch)
   state.leaf_channel := ch;
   state.number_of_current_jobs := 1;
   state.number_of_leaves := 0;
+  state.number_of_computed_steps := 0;
   state.canceled := false;
   state.threads := [ ];
   state.current_number_of_workers := 0;
