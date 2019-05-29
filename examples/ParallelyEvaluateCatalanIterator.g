@@ -1,4 +1,4 @@
-#! @System ParallelyEvaluateCatalanIterator
+#! @Chunk ParallelyEvaluateCatalanIterator
 
 #! This example enumerates all full binary trees with 9 leaves. The number is the sixth Catalan number.
 
