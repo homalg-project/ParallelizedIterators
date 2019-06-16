@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<title>GAP (MatroidGeneration) - Contents</title>
+<title>GAP (ParallelizedIterators) - Contents</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -15,7 +15,7 @@
 <body class="chap0"  onload="jscontent()">
 
 
-<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Next Chapter]</a>&nbsp;  </div>
 
@@ -23,16 +23,16 @@
 <p><a id="X7D2C85EC87DD46E5" name="X7D2C85EC87DD46E5"></a></p>
 <div class="pcenter">
 
-<h1>MatroidGeneration</h1>
+<h1>ParallelizedIterators</h1>
 
 
-<h2>Generate low-rank matroids</h2>
-
-<p>
-    2019.06.05</p>
+<h2>Parallely evaluate recursive iterators</h2>
 
 <p>
-    5 June 2019
+    2019.06.01</p>
+
+<p>
+    1 June 2019
   </p>
 
 </div>
@@ -46,6 +46,16 @@
 <br />Email: <span class="URL"><a href="mailto:mohamed.barakat@uni-siegen.de">mohamed.barakat@uni-siegen.de</a></span>
 <br />Homepage: <span class="URL"><a href="https://mohamed-barakat.github.io">https://mohamed-barakat.github.io</a></span>
 <br />Address: <br />Walter-Flex-Str. 3<br /> 57068 Siegen<br /> Germany<br />
+</p><p><b>
+    Reimer Behrends
+
+
+
+
+  </b>
+<br />Email: <span class="URL"><a href="mailto:behrends@gmail.com">behrends@gmail.com</a></span>
+<br />Homepage: <span class="URL"><a href="https://github.com/rbehrends">https://github.com/rbehrends</a></span>
+<br />Address: <br />Gottlieb-Daimler-Straße<br /> Gebäude 48, Raum 435<br /> 67663 Kaiserslautern<br /> Germany<br />
 </p><p><b>
     Lukas Kühne
 
@@ -63,27 +73,49 @@
 <div class="contents">
 <h3>Contents<a id="contents" name="contents"></a></h3>
 
-<div class="ContChap"><a href="chap1.html#X7872DDC27D1264A8">1 <span class="Heading">Generate low-rank matroids</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X83DDBDA87D904A0E">1.1 <span class="Heading">Rank 3 matroids</span></a>
+<div class="ContChap"><a href="chap1.html#X7EE9A54379154B53">1 <span class="Heading">LiFo of iterators</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7EBFC26F83EB9F72">1.1 <span class="Heading">Info Class</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D092CA77E7C6BF8">1.1-1 GenerateMultiplicityVectorsOfRank3SplitMatroids</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X863AF1987B2EA148">1.1-2 Rank3MatroidIterator</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X83C721A17805B08A">1.1-1 IsLiFo</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7EE9A54379154B53">1.2 <span class="Heading">LiFo of iterators</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7B225FC47C7569CB">1.2-1 CreateAugmentedLiFoOfIterators</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7DE62D1D8597DC26">1.2-2 Length</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82809E5E7999DC09">1.2-3 Push</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X81C670A27F05A41D">1.2-4 InfoOfLiFo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7C7E8DEE7CCCA0DF">1.2-5 Pop</a></span>
 </div></div>
 </div>
-<div class="ContChap"><a href="chap2.html#X82E21ED77B246536">2 <span class="Heading">The database of matroids</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X82E21ED77B246536">2.1 <span class="Heading">The database of matroids</span></a>
+<div class="ContChap"><a href="chap2.html#X8403F83C8397E143">2 <span class="Heading">Parallely evaluate recursive iterators</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7DFEEBAD8089D1B7">2.1 <span class="Heading">Info Classes</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X82CE1DBD79B138DC">2.1-1 AttachMatroidsDatabase</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X79AEBC19822D47F5">2.1-2 EquationsAndInequationsOfModuliSpaceOfMatroid</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X781CD9977B666726">2.1-1 InfoPtree</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7A21F9C37A5BE61A">2.1-2 InfoRecursiveIterator</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X8403F83C8397E143">2.2 <span class="Heading">Parallely evaluate recursive iterators</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7D9D63427B667FFE">2.2-1 ParallelyEvaluateRecursiveIterator</a></span>
 </div></div>
 </div>
-<div class="ContChap"><a href="chap3.html#X84330E2E788F1B05">3 <span class="Heading">MatroidGeneration automatic generated documentation</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X80FCB0CF7F8B0AA5">3.1 <span class="Heading">MatroidGeneration automatic generated documentation of methods</span></a>
+<div class="ContChap"><a href="chap3.html#X85BBA8B887DBC7B2">3 <span class="Heading">Serially evaluate recursive iterators</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X85BBA8B887DBC7B2">3.1 <span class="Heading">Serially evaluate recursive iterators</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8483093C812A4976">3.1-1 MatroidByCoatomsNC</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87D83483801C95AF">3.1-1 SeriallyEvaluateRecursiveIterator</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap4.html#X8508AEF8845565A1">4 <span class="Heading">Tools</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X8508AEF8845565A1">4.1 <span class="Heading">Tools</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7B3E13F1811DCBEE">4.1-1 IteratorByUncertainFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X81566DDA8397F82C">4.1-2 TwoLevelIterator</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7B3F18907862DA3B">4.1-3 ThreeLevelIterator</a></span>
 </div></div>
 </div>
 <div class="ContChap"><a href="chapInd.html"><span class="Heading">Index</span></a></div>
@@ -93,7 +125,7 @@
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Next Chapter]</a>&nbsp;  </div>
 
 
-<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <hr />
 <p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>

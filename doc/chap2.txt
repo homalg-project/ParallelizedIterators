@@ -1,24 +1,53 @@
   
-  [1X2 [33X[0;0YThe database of matroids[133X[101X
+  [1X2 [33X[0;0YParallely evaluate recursive iterators[133X[101X
   
   
-  [1X2.1 [33X[0;0YThe database of matroids[133X[101X
+  [1X2.1 [33X[0;0YInfo Classes[133X[101X
   
-  [1X2.1-1 AttachMatroidsDatabase[101X
+  [1X2.1-1 InfoPtree[101X
   
-  [33X[1;0Y[29X[2XAttachMatroidsDatabase[102X(  ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ya an Arango database[133X
+  [33X[1;0Y[29X[2XInfoPtree[102X[32X info class[133X
   
-  [33X[0;0YAttach       the       Arango       database       of       matroids      at
-  [10Xhttp://matroid.mathematik.uni-siegen.de:8529[110X.[133X
+  [1X2.1-2 InfoRecursiveIterator[101X
   
-  [1X2.1-2 EquationsAndInequationsOfModuliSpaceOfMatroid[101X
+  [33X[1;0Y[29X[2XInfoRecursiveIterator[102X[32X info class[133X
   
-  [33X[1;0Y[29X[2XEquationsAndInequationsOfModuliSpaceOfMatroid[102X( [3Xd[103X, [3XZZ[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10Ya list[133X
   
-  [33X[0;0YGet the list of equations and inequations defining the possibly empty moduli
-  space  of  vector matroids of the matroid over the homalg ring [3XZZ[103X defined by
-  the  document  [3Xd[103X.  This is a quasi-affine representation of the (abstractly)
-  affine moduli space.[133X
+  [1X2.2 [33X[0;0YParallely evaluate recursive iterators[133X[101X
+  
+  [1X2.2-1 ParallelyEvaluateRecursiveIterator[101X
+  
+  [33X[1;0Y[29X[2XParallelyEvaluateRecursiveIterator[102X( [3Xstate[103X, [3Xn[103X, [3Xiter[103X, [3Xch[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya record[133X
+  
+  [33X[0;0YParallely  evaluate  the  recursive iterator [3Xiter[103X using [3Xn[103X workers (threads).
+  Save  the internal state of computations in the given (usually empty) record
+  [3Xstate[103X,  for the user to be able to trace the internal state of computations.
+  The  produced  leaves  are  then  written  to  the channel [3Xch[103X. The procedure
+  returns  a  record containing the component shutdown, which is a no-argument
+  function the user can call to terminate the parallel evaluation.[133X
+  
+  [33X[0;0YThis  example  enumerates all full binary trees with 9 leaves. The number is
+  the sixth Catalan number.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XReadPackage( "ParallelizedIterators", "examples/CatalanIterator.g" );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xstate := rec( );[127X[104X
+    [4X[28Xrec(  )[128X[104X
+    [4X[25Xgap>[125X [27Xthreads := 2;[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xn := 9;[127X[104X
+    [4X[28X9[128X[104X
+    [4X[25Xgap>[125X [27Xriter := IteratorCatalanTree( [[ 1 .. n ]], [[ 1 ]] );[127X[104X
+    [4X[28X<iterator>[128X[104X
+    [4X[25Xgap>[125X [27Xch := CreateChannel( 10000 );;[127X[104X
+    [4X[25Xgap>[125X [27Xscheduler := ParallelyEvaluateRecursiveIterator( state, threads, riter, ch );[127X[104X
+    [4X[28Xrec( shutdown := function(  ) ... end )[128X[104X
+    [4X[25Xgap>[125X [27Xi := 0;[127X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27Xwhile true do l:=ReceiveChannel( ch ); if l=fail then break; fi; i:=i+1; od;[127X[104X
+    [4X[25Xgap>[125X [27Xi;[127X[104X
+    [4X[28X1430[128X[104X
+  [4X[32X[104X
   

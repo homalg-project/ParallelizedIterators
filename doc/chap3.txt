@@ -1,18 +1,33 @@
   
-  [1X3 [33X[0;0YMatroidGeneration automatic generated documentation[133X[101X
+  [1X3 [33X[0;0YSerially evaluate recursive iterators[133X[101X
   
   
-  [1X3.1 [33X[0;0YMatroidGeneration automatic generated documentation of methods[133X[101X
+  [1X3.1 [33X[0;0YSerially evaluate recursive iterators[133X[101X
   
-  [1X3.1-1 MatroidByCoatomsNC[101X
+  [1X3.1-1 SeriallyEvaluateRecursiveIterator[101X
   
-  [33X[1;0Y[29X[2XMatroidByCoatomsNC[102X( [3Xd[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XSeriallyEvaluateRecursiveIterator[102X( [3Xiter[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yan iterator of leaves.[133X
   
-  [33X[0;0YConstruct the matroid defined by the entries[133X
+  [33X[0;0YSerially  evaluate the recursive iterator [3Xiter[103X. The produced leaves are then
+  returned in a usual iterator.[133X
   
-  [30X    [33X[0;6Yd.NumberOfAtoms[133X
+  [33X[0;0YThis  example  enumerates all full binary trees with 9 leaves. The number is
+  the sixth Catalan number.[133X
   
-  [30X    [33X[0;6Yd.Rank[133X
-  
-  [30X    [33X[0;6Yd.ListOfCoatoms (the maximal proper flats) of the database document [3Xd[103X.[133X
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XReadPackage( "ParallelizedIterators", "examples/CatalanIterator.g" );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xn := 9;[127X[104X
+    [4X[28X9[128X[104X
+    [4X[25Xgap>[125X [27Xriter := IteratorCatalanTree( [[ 1 .. n ]], [[ 1 ]] );[127X[104X
+    [4X[28X<iterator>[128X[104X
+    [4X[25Xgap>[125X [27Xliter := SeriallyEvaluateRecursiveIterator( riter );[127X[104X
+    [4X[28X<iterator>[128X[104X
+    [4X[25Xgap>[125X [27Xi := 0;[127X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27Xwhile not IsDoneIterator( liter ) do NextIterator( liter ); i:=i+1; od;[127X[104X
+    [4X[25Xgap>[125X [27Xi;[127X[104X
+    [4X[28X1430[128X[104X
+  [4X[32X[104X
   

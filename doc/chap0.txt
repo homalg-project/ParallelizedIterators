@@ -1,18 +1,20 @@
   
   
-                              [1X MatroidGeneration [101X
+                            [1X ParallelizedIterators [101X
   
   
-                          [1X Generate low-rank matroids [101X
+                    [1X Parallely evaluate recursive iterators [101X
   
   
-                                   2019.06.05
+                                   2019.06.01
   
   
-                                  5 June 2019
+                                  1 June 2019
   
   
                                 Mohamed Barakat
+  
+                                Reimer Behrends
   
                                   Lukas Kühne
   
@@ -26,6 +28,15 @@
                 [33X[0;14YGermany[133X
   
   
+  Reimer Behrends
+      Email:    [7Xmailto:behrends@gmail.com[107X
+      Homepage: [7Xhttps://github.com/rbehrends[107X
+      Address:  [33X[0;14YGottlieb-Daimler-Straße[133X
+                [33X[0;14YGebäude 48, Raum 435[133X
+                [33X[0;14Y67663 Kaiserslautern[133X
+                [33X[0;14YGermany[133X
+  
+  
   Lukas Kühne
       Email:    [7Xmailto:lf.kuehne@gmail.com[107X
       Homepage: [7Xhttps://github.com/lukaskuehne[107X
@@ -36,19 +47,31 @@
   -------------------------------------------------------
   
   
-  [1XContents (MatroidGeneration)[101X
+  [1XContents (ParallelizedIterators)[101X
   
-  1 [33X[0;0YGenerate low-rank matroids[133X
-    1.1 [33X[0;0YRank 3 matroids[133X
-      1.1-1 GenerateMultiplicityVectorsOfRank3SplitMatroids
-      1.1-2 Rank3MatroidIterator
-  2 [33X[0;0YThe database of matroids[133X
-    2.1 [33X[0;0YThe database of matroids[133X
-      2.1-1 AttachMatroidsDatabase
-      2.1-2 EquationsAndInequationsOfModuliSpaceOfMatroid
-  3 [33X[0;0YMatroidGeneration automatic generated documentation[133X
-    3.1 [33X[0;0YMatroidGeneration automatic generated documentation of methods[133X
-      3.1-1 MatroidByCoatomsNC
+  1 [33X[0;0YLiFo of iterators[133X
+    1.1 [33X[0;0YInfo Class[133X
+      1.1-1 IsLiFo
+    1.2 [33X[0;0YLiFo of iterators[133X
+      1.2-1 CreateAugmentedLiFoOfIterators
+      1.2-2 Length
+      1.2-3 Push
+      1.2-4 InfoOfLiFo
+      1.2-5 Pop
+  2 [33X[0;0YParallely evaluate recursive iterators[133X
+    2.1 [33X[0;0YInfo Classes[133X
+      2.1-1 InfoPtree
+      2.1-2 InfoRecursiveIterator
+    2.2 [33X[0;0YParallely evaluate recursive iterators[133X
+      2.2-1 ParallelyEvaluateRecursiveIterator
+  3 [33X[0;0YSerially evaluate recursive iterators[133X
+    3.1 [33X[0;0YSerially evaluate recursive iterators[133X
+      3.1-1 SeriallyEvaluateRecursiveIterator
+  4 [33X[0;0YTools[133X
+    4.1 [33X[0;0YTools[133X
+      4.1-1 IteratorByUncertainFunction
+      4.1-2 TwoLevelIterator
+      4.1-3 ThreeLevelIterator
   
   
   [32X

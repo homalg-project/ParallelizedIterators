@@ -1,5 +1,5 @@
 #
-# MatroidGeneration
+# ParallelizedIterators
 #
 # This file contains package meta data. For additional information on
 # the meaning and correct usage of these fields, please consult the
@@ -8,12 +8,14 @@
 #
 SetPackageInfo( rec(
 
-PackageName := "MatroidGeneration",
-Subtitle := "Generate low-rank matroids",
+PackageName := "ParallelizedIterators",
+Subtitle := "Parallely evaluate recursive iterators",
 Version := Maximum( [
-                   "2019.06.05", ## Mohamed's version
+                   "2019.06.01", ## Mohamed's version
                    ## this line prevents merge conflicts
-                   "2019.06.04", ## Lukas's version
+                   "2017.04.21", ## Reimer's version
+                   ## this line prevents merge conflicts
+                   "2019.05.28", ## Lukas's version
                    ] ),
 
 Date := ~.Version{[ 1 .. 10 ]},
@@ -33,6 +35,21 @@ Persons := [
                "Germany" ),
     Place := "Siegen",
     Institution := "University of Siegen",
+  ),
+  rec(
+    IsAuthor := true,
+    IsMaintainer := true,
+    FirstNames := "Reimer",
+    LastName := "Behrends",
+    WWWHome := "https://github.com/rbehrends",
+    Email := "behrends@gmail.com",
+    PostalAddress := Concatenation(
+               "Gottlieb-Daimler-Straße\n",
+               "Gebäude 48, Raum 435\n",
+               "67663 Kaiserslautern\n",
+               "Germany" ),
+    Place := "Germany",
+    Institution := "TU Kaiserslautern",
   ),
   rec(
     IsAuthor := true,
@@ -78,22 +95,20 @@ Status := "dev",
 AbstractHTML   :=  "",
 
 PackageDoc := rec(
-  BookName  := "MatroidGeneration",
+  BookName  := "ParallelizedIterators",
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Generate low-rank matroids",
+  LongTitle := "Parallely evaluate recursive iterators",
 ),
 
 Dependencies := rec(
   GAP := ">= 4.9.1",
   NeededOtherPackages := [
                    [ "GAPDoc", ">= 1.5" ],
-                   [ "images", ">= 1.1.0" ],
-                   [ "ParallelizedIterators", ">= 2018.12.09" ],
-                   [ "ArangoDBInterface", ">= 2018.12.09" ],
-                   [ "alcove", ">= 2019-03-11" ],
+                   [ "IO", ">= 4.5.1" ],
+                   [ "ToolsForHomalg", ">= 2018.12.01" ],
                    ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ],
@@ -105,6 +120,6 @@ AvailabilityTest := function()
 
 TestFile := "tst/testall.g",
 
-Keywords := [ "matroid generation, low-rank matroids" ],
+Keywords := [ "recursive iterators, parallel evaluation" ],
 
 ));
