@@ -11,7 +11,7 @@ SetPackageInfo( rec(
 PackageName := "ParallelizedIterators",
 Subtitle := "Parallely evaluate recursive iterators",
 Version := Maximum( [
-                   "2018.12.09", ## Mohamed's version
+                   "2019.06.01", ## Mohamed's version
                    ## this line prevents merge conflicts
                    "2017.04.21", ## Reimer's version
                    ## this line prevents merge conflicts
@@ -73,9 +73,9 @@ SourceRepository := rec(
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 #SupportEmail   := "TODO",
-PackageWWWHome  := Concatenation( "https://github.com/homalg-project/", ~.PackageName ),
-PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
+PackageWWWHome  := Concatenation( "https://homalg-project.github.io/", ~.PackageName ),
+PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
+README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
 ArchiveURL      := Concatenation( ~.SourceRepository.URL,
                                  "/releases/download/v", ~.Version,
                                  "/", ~.PackageName, "-", ~.Version ),
