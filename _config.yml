@@ -1,5 +1,5 @@
 markdown:	kramdown
 highlighter:	rouge
 
-baseurl:	/MatroidGeneration
-repository:	homalg-project/MatroidGeneration
+baseurl:	/ParallelizedIterators
+repository:	homalg-project/ParallelizedIterators
