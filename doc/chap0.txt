@@ -6,10 +6,10 @@
                     [1X Parallely evaluate recursive iterators [101X
   
   
-                                   2019.06.01
+                                   2019.06.06
   
   
-                                  1 June 2019
+                                  6 June 2019
   
   
                                 Mohamed Barakat
