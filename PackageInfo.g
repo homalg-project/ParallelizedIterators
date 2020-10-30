@@ -1,5 +1,5 @@
-#
-# ParallelizedIterators
+# SPDX-License-Identifier: GPL-2.0-or-later
+# ParallelizedIterators: Parallely evaluate recursive iterators
 #
 # This file contains package meta data. For additional information on
 # the meaning and correct usage of these fields, please consult the
@@ -11,15 +11,15 @@ SetPackageInfo( rec(
 PackageName := "ParallelizedIterators",
 Subtitle := "Parallely evaluate recursive iterators",
 Version := Maximum( [
-                   "2019.06.07", ## Mohamed's version
+                   "2020.10-01", ## Mohamed's version
                    ## this line prevents merge conflicts
-                   "2017.04.21", ## Reimer's version
+                   "2017.04-21", ## Reimer's version
                    ## this line prevents merge conflicts
-                   "2019.05.28", ## Lukas's version
+                   "2019.05-28", ## Lukas's version
                    ] ),
 
 Date := ~.Version{[ 1 .. 10 ]},
-Date := Concatenation( ~.Date{[ 9, 10 ]}, "/", ~.Date{[ 6, 7 ]}, "/", ~.Date{[ 1 .. 4 ]} ),
+Date := Concatenation( "01/", ~.Version{[ 6, 7 ]}, "/", ~.Version{[ 1 .. 4 ]} ),
 License := "GPL-2.0-or-later",
 
 
@@ -69,19 +69,19 @@ Persons := [
   ),
 ],
 
+# BEGIN URLS
 SourceRepository := rec(
     Type := "git",
-    URL := Concatenation( "https://github.com/homalg-project/", ~.PackageName ),
+    URL := "https://github.com/homalg-project/ParallelizedIterators",
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := Concatenation( "https://homalg-project.github.io/", ~.PackageName ),
-PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
-README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
-ArchiveURL      := Concatenation( ~.SourceRepository.URL,
-                                 "/releases/download/v", ~.Version,
-                                 "/", ~.PackageName, "-", ~.Version ),
+PackageWWWHome  := "https://homalg-project.github.io/ParallelizedIterators",
+PackageInfoURL  := "https://homalg-project.github.io/ParallelizedIterators/PackageInfo.g",
+README_URL      := "https://homalg-project.github.io/ParallelizedIterators/README.md",
+ArchiveURL      := Concatenation( "https://github.com/homalg-project/ParallelizedIterators/releases/download/v", ~.Version, "/ParallelizedIterators-", ~.Version ),
+# END URLS
 
-ArchiveFormats := ".tar.gz",
+ArchiveFormats := ".tar.gz .zip",
 
 ##  Status information. Currently the following cases are recognized:
 ##    "accepted"      for successfully refereed packages

@@ -1,5 +1,5 @@
-#
-# ParallelizedIterators: Tools
+# SPDX-License-Identifier: GPL-2.0-or-later
+# ParallelizedIterators: Parallely evaluate recursive iterators
 #
 # Declarations
 #
