@@ -1,7 +1,7 @@
 name: ParallelizedIterators
-version: "2019.06.07"
+version: "2020.10-01"
 license: "GPL-2.0-or-later"
-date: 2019-06-07
+date: 2020-10-30
 description: |
     Parallely evaluate recursive iterators
 
@@ -32,7 +32,7 @@ needed-pkgs:
       url: "https://gap-packages.github.io/io"
     - name: "ToolsForHomalg"
       version: ">= 2018.12.01"
-      url: "https://homalg-project.github.io/homalg_project/ToolsForHomalg/"
+      url: "https://homalg-project.github.io/homalg_project/ToolsForHomalg"
 
 www: https://homalg-project.github.io/ParallelizedIterators
 readme: README.md
@@ -40,7 +40,11 @@ packageinfo: https://homalg-project.github.io/ParallelizedIterators/PackageInfo.
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/homalg-project/ParallelizedIterators/releases/download/v2019.06.07/ParallelizedIterators-2019.06.07.tar.gz
+      url: https://github.com/homalg-project/ParallelizedIterators/releases/download/v2020.10-01/ParallelizedIterators-2020.10-01.tar.gz
+    - name: .zip
+      url: https://github.com/homalg-project/ParallelizedIterators/releases/download/v2020.10-01/ParallelizedIterators-2020.10-01.zip
+
+pdf: https://github.com/homalg-project/ParallelizedIterators/releases/download/v2020.10-01/ParallelizedIterators-2020.10-01.pdf
 
 abstract: |
 
@@ -51,25 +55,28 @@ keywords: |
     recursive iterators, parallel evaluation.
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>BBK19</span>]   <b class='BibAuthor'>Barakat, M., Behrends, R. and Kühne, L.</b>,
+    [<span class='BibKey'>BBK20</span>]   <b class='BibAuthor'>Barakat, M., Behrends, R. and Kühne, L.</b>,
      <i class='BibTitle'>ParallelizedIterators, Parallely evaluate recursive iterators,
-             Version 2019.06.07</i>
-     (<span class='BibYear'>2019</span>)<br />
+             Version 2020.10-01</i>
+     (<span class='BibYear'>2020</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://homalg-project.github.io/ParallelizedIterators">https://homalg-project.github.io/ParallelizedIterators</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ ParallelizedIterators2019.06.07,
+    @misc{ ParallelizedIterators2020.10-01,
       author =           {Barakat, M. and Behrends, R. and K{\"u}hne, L.},
-      title =            {{ParallelizedIterators}, Parallely evaluate recursive iterators, {V}ersion 2019.06.07},
-      month =            {Jun},
-      year =             {2019},
+      title =            {{ParallelizedIterators},  Parallely evaluate recursive
+                          iterators, {V}ersion 2020.10-01},
+      month =            {Oct},
+      year =             {2020},
       note =             {GAP package},
-      howpublished =     {\href                 {https://homalg-project.github.io/ParallelizedIterators}                 {\texttt{https://homalg-project.github.io/}\discretionary
+      howpublished =     {\href
+                          {https://homalg-project.github.io/ParallelizedIterators}
+                          {\texttt{https://homalg-project.github.io/}\discretionary
                           {}{}{}\texttt{ParallelizedIterators}}},
       keywords =         {recursive iterators, parallel evaluation},
-      printedkey =       {BBK19}
+      printedkey =       {BBK20}
     }
 
