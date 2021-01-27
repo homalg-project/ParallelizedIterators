@@ -75,7 +75,7 @@ SourceRepository := rec(
     URL := "https://github.com/homalg-project/ParallelizedIterators",
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := "https://homalg-project.github.io/ParallelizedIterators",
+PackageWWWHome  := "https://homalg-project.github.io/pkg/ParallelizedIterators",
 PackageInfoURL  := "https://homalg-project.github.io/ParallelizedIterators/PackageInfo.g",
 README_URL      := "https://homalg-project.github.io/ParallelizedIterators/README.md",
 ArchiveURL      := Concatenation( "https://github.com/homalg-project/ParallelizedIterators/releases/download/v", ~.Version, "/ParallelizedIterators-", ~.Version ),
