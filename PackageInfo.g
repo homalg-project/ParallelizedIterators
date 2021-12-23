@@ -10,13 +10,7 @@ SetPackageInfo( rec(
 
 PackageName := "ParallelizedIterators",
 Subtitle := "Parallely evaluate recursive iterators",
-Version := Maximum( [
-                   "2020.10-01", ## Mohamed's version
-                   ## this line prevents merge conflicts
-                   "2017.04-21", ## Reimer's version
-                   ## this line prevents merge conflicts
-                   "2019.05-28", ## Lukas's version
-                   ] ),
+Version := "2021.12-01",
 
 Date := ~.Version{[ 1 .. 10 ]},
 Date := Concatenation( "01/", ~.Version{[ 6, 7 ]}, "/", ~.Version{[ 1 .. 4 ]} ),
