@@ -10,16 +10,10 @@ SetPackageInfo( rec(
 
 PackageName := "ParallelizedIterators",
 Subtitle := "Parallely evaluate recursive iterators",
-Version := Maximum( [
-                   "2020.10-01", ## Mohamed's version
-                   ## this line prevents merge conflicts
-                   "2017.04-21", ## Reimer's version
-                   ## this line prevents merge conflicts
-                   "2019.05-28", ## Lukas's version
-                   ] ),
+Version := "2021.12-01",
 
-Date := "30/10/2020",
-Date := "30/10/2020",
+Date := "24/12/2021",
+Date := "24/12/2021",
 License := "GPL-2.0-or-later",
 
 
@@ -75,7 +69,7 @@ SourceRepository := rec(
     URL := "https://github.com/homalg-project/ParallelizedIterators",
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := "https://homalg-project.github.io/ParallelizedIterators",
+PackageWWWHome  := "https://homalg-project.github.io/pkg/ParallelizedIterators",
 PackageInfoURL  := "https://homalg-project.github.io/ParallelizedIterators/PackageInfo.g",
 README_URL      := "https://homalg-project.github.io/ParallelizedIterators/README.md",
 ArchiveURL      := Concatenation( "https://github.com/homalg-project/ParallelizedIterators/releases/download/v", ~.Version, "/ParallelizedIterators-", ~.Version ),

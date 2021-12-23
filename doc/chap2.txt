@@ -6,11 +6,11 @@
   
   [1X2.1-1 InfoPtree[101X
   
-  [33X[1;0Y[29X[2XInfoPtree[102X[32X info class[133X
+  [33X[1;0Y[29X[2XInfoPtree[102X [32X info class[133X
   
   [1X2.1-2 InfoRecursiveIterator[101X
   
-  [33X[1;0Y[29X[2XInfoRecursiveIterator[102X[32X info class[133X
+  [33X[1;0Y[29X[2XInfoRecursiveIterator[102X [32X info class[133X
   
   
   [1X2.2 [33X[0;0YParallely evaluate recursive iterators[133X[101X
